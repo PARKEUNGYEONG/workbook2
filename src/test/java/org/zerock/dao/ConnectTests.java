@@ -15,15 +15,26 @@ public class ConnectTests {
 
 
     @Test
-    public void testHikariCP() throws Exception{
-    HikariConfig config = new HikariConfig("com.mysql.cj.jdbc.Driver");
-    config.setDriverClassName( "jdbc:mysql://localhost:3306/webdb",);
-    config.setUsername( "webuser");
-    config.setPassword("webuser");
-    config.addDataSourceProperty("cachePrepStmts","true");
-    config.addDataSourceProperty("prepStmtCacheSize","250");
-    config.addDataSourceProperty("preStntCacheSqlLimit","2048");
+    public void testHikariCP() throws Exception {
+
+
+        HikariConfig config = new HikariConfig("com.mysql.cj.jdbc.Driver");
+        config.setDriverClassName("jdbc:mysql://localhost:3306/webdb");
+        config.setUsername("webuser");
+        config.setPassword("webuser");
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("preStntCacheSqlLimit", "2048");
+
+        HikariDataSource ds = new HikariDataSource(config);
+        Connection connection = ds.getConnection();
+
+        System.out.println(connection);
+
+        connection.close();
 
 
     }
+
+}
 
