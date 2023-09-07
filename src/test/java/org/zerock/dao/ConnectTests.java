@@ -12,6 +12,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConnectTests {
     //ConnectTests 에는@Test어노테이션을 사용하는 메소드를 작성한다.이를 테스트 코드라고 한다.
+
     @Test
     public void testConnection() throws Exception{
 
