@@ -21,6 +21,9 @@ public enum ConnectionUtil {
         config.addDataSourceProperty("preStmtCacheSqlLimit", "2048");
 
         ds = new HikariDataSource(config);
-    }
 
+    }
+    public Connection getConnection()throws Exception{
+        return ds.getConnection();
+    }
 }
