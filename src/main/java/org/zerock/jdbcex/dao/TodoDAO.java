@@ -72,10 +72,10 @@ public class TodoDAO {
             TodoVO vo =TodoVO.builder()
                     .tno(resultSet.getLong("tno"))
                     .title(resultSet.getString("title"))
-                    .dueDate(resultSet.getDate("duDate").toLocalDate())
+                    .dueDate(resultSet.getDate("dueDate").toLocalDate())
                     .finished(resultSet.getBoolean("finished"))
                     .build();
-
+//Result set으로 각 행을 이동하면서 (next()의 결과는 이동할 수 있는 행이 존재하면 true, 아니라면 false) 각 행의 데이터를 TodoVo로 변환한다.
             List.add(vo);
         }
 

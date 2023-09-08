@@ -8,6 +8,8 @@ import org.zerock.jdbcex.dao.TodoDAO;
 import org.zerock.jdbcex.domain.TodoVO;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoDAOTests {
 
@@ -34,7 +36,14 @@ public class TodoDAOTests {
 
         //빌더 패턴은 생성자와 달리 필요한 만큼만 데이터를 세팅할수 있다는 장점이 있다.
     }
+
+    @Test
+    public void testList() throws Exception{
+        List<TodoVO> list = todoDAO.selectAll();
+
+       list.forEach(vo->System.out.println(vo));
+    }
+
 }
 
-/*TodoDATOTests 는 @BeforeEach를 이용하는 ready()를 통해서 모든 테스트전에 TodoDAO타입의 객체를 생성하도록 하고, testTime()을 이용해서
-* TodoDAO에 작성한 getTime()이 정상 작동하는지를 확인한다.*/
+
