@@ -31,6 +31,8 @@ public class TodoDAOTests {
                 .build();
 
         todoDAO.insert(todoVO);
+
+        //빌더 패턴은 생성자와 달리 필요한 만큼만 데이터를 세팅할수 있다는 장점이 있다.
     }
 }
 

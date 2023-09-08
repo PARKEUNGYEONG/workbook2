@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoDAO {
 
@@ -55,6 +57,29 @@ public class TodoDAO {
         preparedStatement.executeUpdate();
         /*preparedStatement는 ?를 이용해서 나중에 전달할 데이터들을 지정하는데 setXXX()을 이용해서 실제 값들을 지정한다.
         * 이떄 인덱스 번호가 0이 아닌 1부터 시작된다는것을 주의해야한다. 예제의 경우 3개의 ?가 존재하므로 setXXX()역시 3개를 지정해야한다. */
+    }
+
+    public List<TodoVO> selectAll()throws Exception{
+
+        String sql = "select * from tbl_todo";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<TodoVO>List = new ArrayList<>();
+
+        while (resultSet.next()){
+            TodoVO vo =TodoVO.builder()
+                    .tno(resultSet.getLong("tno"))
+                    .title(resultSet.getString("title"))
+                    .dueDate(resultSet.getDate("duDate").toLocalDate())
+                    .finished(resultSet.getBoolean("finished"))
+                    .build();
+
+            List.add(vo);
+        }
+
+        return List;
     }
 
 
