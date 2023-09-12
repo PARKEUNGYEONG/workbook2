@@ -44,6 +44,18 @@ public class TodoDAOTests {
        list.forEach(vo->System.out.println(vo));
     }
 
+    @Test
+    public void testSelectOne() throws Exception{
+
+        Long tno = 1L;//반드시 존재하는 번호를 이용
+
+        TodoVO vo = todoDAO.selectOne(tno);
+
+        System.out.println(vo);
+    }
+
+    //여러개의 데이터가 나오는 selctAll()과 달리 selectOne()은 한 행의 데이터만 나오기 때문에 한번단 resultSet.next()을 실행하면 된다.
+
 }
 
 

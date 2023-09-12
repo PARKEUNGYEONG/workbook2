@@ -1,5 +1,6 @@
 package org.zerock.jdbcex.dao;
 
+import com.sun.tools.javac.comp.Todo;
 import lombok.Cleanup;
 import org.zerock.jdbcex.domain.TodoVO;
 
@@ -78,10 +79,41 @@ public class TodoDAO {
 //Result set으로 각 행을 이동하면서 (next()의 결과는 이동할 수 있는 행이 존재하면 true, 아니라면 false) 각 행의 데이터를 TodoVo로 변환한다.
             List.add(vo);
         }
-
         return List;
     }
 
+    public TodoVO selectOne(Long tno)throws Exception{
+
+        String sql = "select * from tbl_todo where tno = ?";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setLong(1,tno);
+
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+        resultSet.next();
+        TodoVO vo = TodoVO.builder()
+                .tno(resultSet.getLong("tno"))
+                .title(resultSet.getString("title"))
+                .dueDate(resultSet.getDate("dueDate").toLocalDate())
+                .finished(resultSet.getBoolean("finished"))
+                .build();
+
+        return vo;
+    }
+
+    public void deleteOne(Long tno) throws Exception{
+
+        String sql = "delete from tbl_tno where tno =?";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement =connection.prepareStatement(sql);
+
+        preparedStatement.setLong(1,tno);
+        preparedStatement.executeUpdate();
+    }
 
 }
 
