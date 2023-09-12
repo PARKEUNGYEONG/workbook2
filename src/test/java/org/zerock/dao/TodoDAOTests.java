@@ -56,6 +56,18 @@ public class TodoDAOTests {
 
     //여러개의 데이터가 나오는 selctAll()과 달리 selectOne()은 한 행의 데이터만 나오기 때문에 한번단 resultSet.next()을 실행하면 된다.
 
+    @Test
+    public void testUpdateOne()throws Exception{
+        TodoVO todoVO =TodoVO.builder()
+                .tno(1L)
+                .title("Sample Title.....")
+                .dueDate(LocalDate.of(2021,12,31))
+                .finished(true)
+                .build();
+
+        todoDAO.updateOne(todoVO);
+    }
+
 }
 
 

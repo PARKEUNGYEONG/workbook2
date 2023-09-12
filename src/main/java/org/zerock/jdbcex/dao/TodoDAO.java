@@ -115,6 +115,20 @@ public class TodoDAO {
         preparedStatement.executeUpdate();
     }
 
+    public void updateOne(TodoVO todoVO)throws Exception{
+        String sql = "update tbl_todo set title =?,dueDate=?,finished=? where tno =?";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement =connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, todoVO.getTitle());
+        preparedStatement.setDate(2,Date.valueOf(todoVO.getDueDate()));
+        preparedStatement.setBoolean(3,todoVO.isFinished());
+        preparedStatement.setLong(4,todoVO.getTno());
+
+        preparedStatement.executeUpdate();
+    }
+
 }
 
 /*getTime()은 try-with-resources 기능을 이용해서 try()내에 선언된 변수들이 자동으로 close()될 수 있는 구조로 작성*/
