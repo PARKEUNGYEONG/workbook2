@@ -18,7 +18,7 @@ public class TodoDAO {
 
         try (Connection connection = ConnectionUtil.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("select now()");
-             ResultSet resultSet = preparedStatement.executeQuery();
+             ResultSet resultSet = preparedStatement.executeQuery()
         ) {
 
             resultSet.next();
@@ -45,8 +45,12 @@ public class TodoDAO {
         return now;
     }
     public void insert(TodoVO vo)throws Exception{
-        String sql = "insert into tbl_todo (title,dueDate,finished)values(?,?,?)";
+        //TOdoDAO의 등록기능 구현
         /*insert()는 파라미터로 입력된 TOdoVO객체의 정보를 이용해서 DML을 실행하기 떄문에 excuteUpdate를 실행하도록 구성한다,*/
+        /*preparedStatement는 ?를 이용해서 나중에 전달할 데이터들을 지정하는데 setXXX()을 이용해서 실제 값들을 지정한다.
+         *이떄 인덱스 번호가 0이 아닌 1부터 시작된다는것을 주의해야한다. 예제의 경우 3개의 ?가 존재하므로 setXXX()역시 3개를 지정해야한다. */
+
+        String sql = "insert into tbl_todo (title,dueDate,finished)values(?,?,?)";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -56,11 +60,11 @@ public class TodoDAO {
         preparedStatement.setBoolean(3,vo.isFinished());
 
         preparedStatement.executeUpdate();
-        /*preparedStatement는 ?를 이용해서 나중에 전달할 데이터들을 지정하는데 setXXX()을 이용해서 실제 값들을 지정한다.
-        * 이떄 인덱스 번호가 0이 아닌 1부터 시작된다는것을 주의해야한다. 예제의 경우 3개의 ?가 존재하므로 setXXX()역시 3개를 지정해야한다. */
+
     }
 
     public List<TodoVO> selectAll()throws Exception{
+        //TodoDAO의 목록기능 구현
 
         String sql = "select * from tbl_todo";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -83,6 +87,7 @@ public class TodoDAO {
     }
 
     public TodoVO selectOne(Long tno)throws Exception{
+        //TodoDAO의 조회기능 구현
 
         String sql = "select * from tbl_todo where tno = ?";
 
@@ -105,6 +110,7 @@ public class TodoDAO {
     }
 
     public void deleteOne(Long tno) throws Exception{
+        //TodoDAO의 삭제 기능 구현
 
         String sql = "delete from tbl_tno where tno =?";
 
@@ -116,6 +122,8 @@ public class TodoDAO {
     }
 
     public void updateOne(TodoVO todoVO)throws Exception{
+        //TodoDAO의 수정 기능 구현
+
         String sql = "update tbl_todo set title =?,dueDate=?,finished=? where tno =?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
