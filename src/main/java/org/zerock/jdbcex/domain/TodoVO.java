@@ -1,14 +1,14 @@
 package org.zerock.jdbcex.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
 @Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+//@AllArgsConstructor 와 @NoArgsConstructor로 파라미터가 없는 생성자와 모든 필드값이 필요한 생성자를 만들어낸다.
 
 /*VO는 주로 읽기 전용으로 사용하는 경우가 많으로 @Getter을 추가했고
 * 객체 생성 시에 빌더 패턴을 사용하기 위해서 @Builder 어노테이션을 추가하였다. */
